@@ -62,6 +62,8 @@ class Book(models.Model):
     summary = models.TextField(blank=True)
     rating = models.CharField(max_length=1, choices=RATING, blank=True)
     maturity = models.CharField(max_length=1, choices=MATURITY, blank=True)
+    imported = models.BooleanField(default=False)
+    pages = models.IntegerField(blank=True, default=0)
     
     def __str__(self):
         return self.title
