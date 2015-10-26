@@ -10,7 +10,10 @@ class BookResource(resources.ModelResource):
 
     class Meta:
         model = Book
-
+        fields = ('id', 'title', 'published_date', 'cover_price', 'quantity', 'isbn', 'bar_code', 'publisher',)
+        export_order = ('quantity', 'published_date', 'title', 'cover_price', 'isbn', 'bar_code', 'publisher',)
+        import_id_fields = ('title')
+        
 class BookAdmin(ImportExportMixin, admin.ModelAdmin):
     fieldsets = [
         (None,          {'fields':['title', 'volume', 'imported']}),
