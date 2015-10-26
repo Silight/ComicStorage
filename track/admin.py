@@ -1,8 +1,17 @@
 from django.contrib import admin
+from import_export.admin import ImportExportMixin, ImportExportModelAdmin
+from import_export import resources
+
 from .models import Book
 
 
-class BookAdmin(admin.ModelAdmin):
+
+class BookResource(resources.ModelResource):
+
+    class Meta:
+        model = Book
+
+class BookAdmin(ImportExportMixin, admin.ModelAdmin):
     fieldsets = [
         (None,          {'fields':['title', 'volume', 'imported']}),
         ('Talent',      {'fields':['writer', 'artist', 'publisher']}),
@@ -14,6 +23,7 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ['publisher', 'published_date', 'quantity', 'rating', 'imported',]
     search_fields = ['title', 'publisher', 'writer', 'artist', 'summary',]
     save_on_top = True
+    resource_class = BookResource
 
     
 admin.site.register(Book, BookAdmin)
